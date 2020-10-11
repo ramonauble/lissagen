@@ -25,11 +25,11 @@ const pi = Math.PI;
 let d = pi/2;
 
 for (let t = 0; t <= 1; t += .00001) {
-  let x_lis = Math.floor(((imgWidth - 1)/2)*Math.sin(30763*pi*t + d));
-  let y_lis = Math.floor(((imgHeight - 1)/2)*Math.sin(30757*pi*t));
-  plane.data[cToIndex(imgWidth, imgHeight, x_lis, y_lis)] = 127;
-  plane.data[cToIndex(imgWidth, imgHeight, x_lis, y_lis) + 1] = 63;
-  plane.data[cToIndex(imgWidth, imgHeight, x_lis, y_lis) + 2] = 129;
+  let x_lis = Math.floor(((imgWidth - 1)/2)*Math.sin(679*pi*t + d));
+  let y_lis = Math.floor(((imgHeight - 1)/2)*Math.sin(671*pi*t));
+  plane.data[cToIndex(imgWidth, imgHeight, x_lis, y_lis)] = 80;
+  plane.data[cToIndex(imgWidth, imgHeight, x_lis, y_lis) + 1] = 6;
+  plane.data[cToIndex(imgWidth, imgHeight, x_lis, y_lis) + 2] = 85;
   plane.data[cToIndex(imgWidth, imgHeight, x_lis, y_lis) + 3] = 255;
 }
 lissaCtx.putImageData(plane, 0, -1);
