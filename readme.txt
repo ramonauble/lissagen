@@ -1,11 +1,22 @@
-parametric lissajous generator
+parametric lissajous curve generator
 by ramona a
 10-11-20
 ------------------------------------------------------------------------
 
-a lissajous curve comes to be when two separate sinusoids are taken
-as x & y coordinates; these are then graphed to a 2 dimensional plane
-& are defined by the set of parametric equations:
+• a lissajous curve comes to be when two sinusoidal inputs are taken as
+separate x & y coordinates within a signed 2 dimensional plane
+• the resulting points are graphed by iterating the independent variable t over
+a predetermined range [tMin, tMax], in steps of tStep
+• the frequencies of each sinusoid are multiplied by t for every value of t
+  within this range, giving an output of ((tMax - tMin)/tStep) unique points
+• each unique point, defined by (x, y), will always fall between [-1, 1] on both
+  axes (since each coordinate is a sinusoid, which is a bounded function)
+• the x & y coordinates of the resulting set of points are then multiplied by half
+  of one less than the absolute boundary of the total canvas width (imgWidth), giving
+  a scaled bounded output on both axes between [-(imgWidth - 1)/2, (imgWidth - 1)/2]
+  • canvas area is rectangular, so imgWidth == imgHeight in this case
+
+the curve itself is defined by the set of parametric equations:
   • x = Asin(at + δ)
   • y = Bsin(bt)
 

@@ -30,12 +30,13 @@ body {
     background-color:#D8B9D0;
   }
 
-.name {
+#title {
   text-align:center;
   margin:.25em auto .1em;
   font-family:monospace;
   font-size:5.5em;
   text-decoration:underline;
+  max-width:421px;
 }
 
 #lissaCanv {
@@ -44,3 +45,21 @@ body {
   border:none;
   display:block;
 }
+
+.paramControls {
+  display:block;
+  margin: 0 auto;
+  text-align:center;
+}
+#freqControls {
+  
+}
+  .paramInput {
+    display:inline-block;
+  }
+  #xFreq {
+
+  }
+  #yFreq {
+
+  }
