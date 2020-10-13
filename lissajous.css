@@ -32,7 +32,7 @@ body {
 
 #title {
   text-align:center;
-  margin:.25em auto .1em;
+  margin:.1em auto .1em;
   font-family:monospace;
   font-size:5.5em;
   text-decoration:underline;
@@ -46,20 +46,55 @@ body {
   display:block;
 }
 
-.paramControls {
+#paramsDiv {
   display:block;
   margin: 0 auto;
   text-align:center;
+  max-width:421px;
+  padding:5px 0px 0px;
 }
-#freqControls {
-  
+
+.paramInput {
+  height:16px;
+  display:inline-block;
+  -webkit-appearance:none;
+  appearance:none;
+  outline:none;
+  opacity:.85;
+  transition:opacity .1s;
+  margin:0px auto;
+  background:#BB94B0;
 }
-  .paramInput {
-    display:inline-block;
+  .paramInput:hover {
+    opacity:1;
   }
-  #xFreq {
+  .paramInput::-webkit-slider-thumb {
+    -webkit-appearance:none;
+    appearance:none;
+    width:16px;
+    height:16px;
+    background:#8C6781;
+    cursor:pointer;
+  }
+  .paramInput::-moz-range-thumb {
+    width:16px;
+    height:16px;
+    background:#8C6781;
+    cursor:pointer;
+  }
+  .full {
+    width:97%;
+  }
+  .half {
+    display:inline-block;
+    width:48%;
+  }
+  #xScale {
 
   }
-  #yFreq {
+  #yScale {
+
+  }
+  #pShift {
 
   }

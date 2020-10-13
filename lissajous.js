@@ -35,17 +35,20 @@ if (window.innerWidth > 480) {
   }
 }
 
-//resize title text
-let title = document.getElementById("title");
-title.width = lissaCanv.width;
-title.height = lissaCanv.height;
-let titleWidth = (title.width/5.2) + "px";
-title.style.fontSize = titleWidth;
-
 //define imageData width & height and instantiate imageData object
 const imgWidth = lissaCanv.width;
 const imgHeight = lissaCanv.height;
 var plane = new ImageData(imgWidth, imgHeight);
+
+//resize title text
+let title = document.getElementById("title");
+title.width = lissaCanv.width;
+let titleFont = (title.width/9) + "px";
+title.style.fontSize = titleFont;
+
+//resize parameter controls
+let paramsDiv = document.getElementById("paramsDiv");
+paramsDiv.width = lissaCanv.width;
 
 //draw initial curve
 drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
