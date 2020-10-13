@@ -7,9 +7,9 @@ const pi = Math.PI;
 //initialize curve parameters
 let scaleA = 1;     //scaling factor for x
 let scaleB = 1;     //scaling factor for y
-let freqA = 677*pi;   //frequency of x
-let freqB = 679*pi;   //frequency of y
-let d = pi/8;       //δ - phase shift of x
+let freqA = 1;   //frequency of x
+let freqB = 1;   //frequency of y
+let d = 0;       //δ - phase shift of x
 //initialize independent variable
 let tMin = 0;       //starting pos. of independent variable t
 let tMax = 1;       //ending pos. of t

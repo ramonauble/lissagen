@@ -71,14 +71,14 @@ body {
   .paramInput::-webkit-slider-thumb {
     -webkit-appearance:none;
     appearance:none;
-    width:16px;
-    height:16px;
+    width:18px;
+    height:18px;
     background:#8C6781;
     cursor:pointer;
   }
   .paramInput::-moz-range-thumb {
-    width:16px;
-    height:16px;
+    width:18px;
+    height:18px;
     background:#8C6781;
     cursor:pointer;
   }
