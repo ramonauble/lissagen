@@ -46,6 +46,11 @@ title.width = lissaCanv.width;
 let titleFont = (title.width/9) + "px";
 title.style.fontSize = titleFont;
 
+let xEq = document.getElementById("xEq");
+let yEq = document.getElementById("yEq");
+xEq.style.fontSize = (title.width/27) + "px";
+yEq.style.fontSize = (title.width/27) + "px";
+
 //resize parameter controls
 let paramsDiv = document.getElementById("paramsDiv");
 paramsDiv.width = lissaCanv.width;
@@ -60,10 +65,10 @@ function drawLis (scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep) {
     let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
     let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
     let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
-    plane.data[pixelIndex] = 196*(freqA/250)*(scaleA/2);
-    plane.data[pixelIndex + 1] = 196*(freqB/250)*(scaleB/3)
-    plane.data[pixelIndex + 2] = 196*(d/(3*pi));
-    plane.data[pixelIndex + 3] = a;
+    plane.data[pixelIndex] = Math.floor(196*(freqA/250)*(scaleA/2));
+    plane.data[pixelIndex + 1] = Math.floor(196*(freqB/250)*(scaleB/2));
+    plane.data[pixelIndex + 2] = Math.floor(196*(d/(4*pi)));
+    plane.data[pixelIndex + 3] = Math.floor(a);
   }
   lissaCtx.putImageData(plane, 0, -1);
 }

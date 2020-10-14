@@ -28,11 +28,11 @@ body {
     border-width:5px;
     border-color:#BB94B0;
     background-color:#D8B9D0;
+    text-align:center;
   }
 
 #title {
-  text-align:center;
-  margin:.1em auto .1em;
+  margin:.1em auto -.1em;
   font-family:monospace;
   font-size:5.5em;
   text-decoration:underline;
@@ -46,23 +46,36 @@ body {
   display:block;
 }
 
-#paramsDiv {
+#paramsDiv, #eqDiv{
   display:block;
-  margin: 0 auto;
   text-align:center;
   max-width:421px;
-  padding:5px 0px 0px;
+}
+  #paramsDiv {
+    margin: 0 auto;
+    padding:5px 0px 0px;
+  }
+  #eqDiv {
+    margin: 1px auto;
+    padding:0px 0px;
+  }
+
+#xEq, #yEq {
+  display:inline-block;
+  margin:0 auto;
+  font-family:monospace;
+  font-size:16px;
 }
 
 .paramInput {
-  height:16px;
+  height:20px;
   display:inline-block;
   -webkit-appearance:none;
   appearance:none;
   outline:none;
   opacity:.85;
-  transition:opacity .1s;
-  margin:0px auto;
+  transition:opacity .15s;
+  margin:2px auto;
   background:#BB94B0;
 }
   .paramInput:hover {
@@ -71,14 +84,14 @@ body {
   .paramInput::-webkit-slider-thumb {
     -webkit-appearance:none;
     appearance:none;
-    width:18px;
-    height:18px;
+    width:24px;
+    height:24px;
     background:#8C6781;
     cursor:pointer;
   }
   .paramInput::-moz-range-thumb {
-    width:18px;
-    height:18px;
+    width:24px;
+    height:24px;
     background:#8C6781;
     cursor:pointer;
   }
