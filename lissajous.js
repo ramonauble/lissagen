@@ -46,10 +46,27 @@ title.width = lissaCanv.width;
 let titleFont = (title.width/9) + "px";
 title.style.fontSize = titleFont;
 
+//size and style equations
+let eqDiv = document.getElementById("eqDiv");
 let xEq = document.getElementById("xEq");
 let yEq = document.getElementById("yEq");
-xEq.style.fontSize = (title.width/27) + "px";
-yEq.style.fontSize = (title.width/27) + "px";
+xEq.style.fontSize = (title.width/32) + "px";
+yEq.style.fontSize = (title.width/32) + "px";
+eqDiv.style.width = (title.width) + "px";
+xEq.style.width = (title.width/2) + "px";
+yEq.style.width = (title.width/2) + "px";
+
+//initialize equation display
+let xScale_disp = document.getElementById("xScale_disp");
+let yScale_disp = document.getElementById("yScale_disp");
+let xFreq_disp = document.getElementById("xFreq_disp");
+let yFreq_disp = document.getElementById("yFreq_disp");
+let d_disp = document.getElementById("d_disp");
+xScale_disp.innerHTML = parseFloat(scaleA).toFixed(2);
+yScale_disp.innerHTML = parseFloat(scaleB).toFixed(2);
+xFreq_disp.innerHTML = parseFloat(freqA).toFixed(2);
+yFreq_disp.innerHTML = parseFloat(freqB).toFixed(2);
+d_disp.innerHTML = parseFloat(d).toFixed(2);
 
 //resize parameter controls
 let paramsDiv = document.getElementById("paramsDiv");
@@ -88,16 +105,21 @@ function paramInput (param, value) {
   //0 to 250
   if (param == "xFreq") {
     freqA = parseFloat(value);
+    xFreq_disp.innerHTML = parseFloat(freqA).toFixed(2);
   } else if (param == "yFreq") {
     freqB = parseFloat(value);
+    yFreq_disp.innerHTML = parseFloat(freqB).toFixed(2);
   //0 to 1
   } else if (param == "xScale") {
     scaleA = parseFloat(value);
+    xScale_disp.innerHTML = parseFloat(scaleA).toFixed(2);
   } else if (param == "yScale") {
     scaleB = parseFloat(value);
+    yScale_disp.innerHTML = parseFloat(scaleB).toFixed(2);
   //0 to 2*pi
   } else if (param == "pShift") {
     d = parseFloat(value);
+    d_disp.innerHTML = parseFloat(d).toFixed(2);
   }
   drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
 }

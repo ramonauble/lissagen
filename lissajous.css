@@ -32,7 +32,7 @@ body {
   }
 
 #title {
-  margin:.1em auto -.1em;
+  margin:0em auto 4px;
   font-family:monospace;
   font-size:5.5em;
   text-decoration:underline;
@@ -40,7 +40,7 @@ body {
 }
 
 #lissaCanv {
-  background-color:#F1DBEB;
+  background-color:#F0D2E8;
   margin:0 auto;
   border:none;
   display:block;
@@ -52,11 +52,11 @@ body {
   max-width:421px;
 }
   #paramsDiv {
-    margin: 0 auto;
+    margin:0 auto;
     padding:5px 0px 0px;
   }
   #eqDiv {
-    margin: 1px auto;
+    margin:-2px auto 2px;
     padding:0px 0px;
   }
 
@@ -65,7 +65,16 @@ body {
   margin:0 auto;
   font-family:monospace;
   font-size:16px;
+  background:#E3C7DC;
 }
+  #xEq {
+    border-right:1px dotted black;
+    margin-right:-3px;
+  }
+  #yEq {
+    border-left:1px dotted black;
+    margin-left:-3px;
+  }
 
 .paramInput {
   height:20px;
