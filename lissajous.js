@@ -60,9 +60,9 @@ function drawLis (scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep) {
     let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
     let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
     let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
-    plane.data[pixelIndex] = r;
-    plane.data[pixelIndex + 1] = g;
-    plane.data[pixelIndex + 2] = b;
+    plane.data[pixelIndex] = 196*(freqA/250)*(scaleA/2);
+    plane.data[pixelIndex + 1] = 196*(freqB/250)*(scaleB/3)
+    plane.data[pixelIndex + 2] = 196*(d/(3*pi));
     plane.data[pixelIndex + 3] = a;
   }
   lissaCtx.putImageData(plane, 0, -1);
@@ -80,14 +80,17 @@ function cToIndex (imgWidth, imgHeight, x, y) {
 }
 
 function paramInput (param, value) {
+  //0 to 250
   if (param == "xFreq") {
     freqA = parseFloat(value);
   } else if (param == "yFreq") {
     freqB = parseFloat(value);
+  //0 to 1
   } else if (param == "xScale") {
     scaleA = parseFloat(value);
   } else if (param == "yScale") {
     scaleB = parseFloat(value);
+  //0 to 2*pi
   } else if (param == "pShift") {
     d = parseFloat(value);
   }
