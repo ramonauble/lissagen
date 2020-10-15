@@ -50,11 +50,11 @@ title.style.fontSize = titleFont;
 let eqDiv = document.getElementById("eqDiv");
 let xEq = document.getElementById("xEq");
 let yEq = document.getElementById("yEq");
-xEq.style.fontSize = (title.width/32) + "px";
-yEq.style.fontSize = (title.width/32) + "px";
+xEq.style.fontSize = (title.width/30) + "px";
+yEq.style.fontSize = (title.width/30) + "px";
 eqDiv.style.width = (title.width) + "px";
-xEq.style.width = (title.width/2) + "px";
-yEq.style.width = (title.width/2) + "px";
+xEq.style.width = (title.width*.56) + "px";
+yEq.style.width = (title.width*.44) + "px";
 
 //initialize equation display
 let xScale_disp = document.getElementById("xScale_disp");
@@ -67,6 +67,11 @@ yScale_disp.innerHTML = parseFloat(scaleB).toFixed(2);
 xFreq_disp.innerHTML = parseFloat(freqA).toFixed(2);
 yFreq_disp.innerHTML = parseFloat(freqB).toFixed(2);
 d_disp.innerHTML = parseFloat(d).toFixed(2);
+xScale_disp.style.color = "#8A8A8A";
+yScale_disp.style.color = "#1E1E1E";
+xFreq_disp.style.color = "#501D66";
+yFreq_disp.style.color = "#A42F2B";
+d_disp.style.color = "#FFFFFF";
 
 //resize parameter controls
 let paramsDiv = document.getElementById("paramsDiv");
