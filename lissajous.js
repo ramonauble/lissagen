@@ -1,7 +1,3 @@
-//define canvas reference
-const lissaCanv = document.getElementById("lissaCanv");
-const lissaCtx = lissaCanv.getContext("2d");
-
 //define pi
 const pi = Math.PI;
 //initialize curve parameters
@@ -20,67 +16,8 @@ let g = 6;    //green
 let b = 85;   //blue
 let a = 255;  //alpha (opacity)
 
-//size the canvas according to innerWidth of window object
-//capped at 421px;
-if (window.innerWidth > 480) {
-  lissaCanv.width = 421;
-  lissaCanv.height = 421;
-} else {
-  if (window.innerWidth % 2 == 0) { //inner width even
-    lissaCanv.width = (window.innerWidth - 61);
-    lissaCanv.height = lissaCanv.width;
-  } else {                          //inner width odd
-    lissaCanv.width = (window.innerWidth - 60);
-    lissaCanv.height = lissaCanv.width;
-  }
-}
-
-//define imageData width & height and instantiate imageData object
-const imgWidth = lissaCanv.width;
-const imgHeight = lissaCanv.height;
+//instantiate imageData object
 var plane = new ImageData(imgWidth, imgHeight);
-
-//resize title text
-let title = document.getElementById("title");
-title.width = lissaCanv.width;
-let titleFont = (title.width/9) + "px";
-title.style.fontSize = titleFont;
-
-//size and style equations
-let eqDiv = document.getElementById("eqDiv");
-let xEq = document.getElementById("xEq");
-let yEq = document.getElementById("yEq");
-xEq.style.fontSize = (title.width/30) + "px";
-yEq.style.fontSize = (title.width/30) + "px";
-eqDiv.style.width = (title.width) + "px";
-xEq.style.width = (title.width*.56) + "px";
-yEq.style.width = (title.width*.44) + "px";
-
-//initialize equation display
-let xScale_disp = document.getElementById("xScale_disp");
-let yScale_disp = document.getElementById("yScale_disp");
-let xFreq_disp = document.getElementById("xFreq_disp");
-let yFreq_disp = document.getElementById("yFreq_disp");
-let d_disp = document.getElementById("d_disp");
-xScale_disp.innerHTML = parseFloat(scaleA).toFixed(2);
-yScale_disp.innerHTML = parseFloat(scaleB).toFixed(2);
-xFreq_disp.innerHTML = parseFloat(freqA).toFixed(2);
-yFreq_disp.innerHTML = parseFloat(freqB).toFixed(2);
-d_disp.innerHTML = parseFloat(d).toFixed(2);
-xScale_disp.style.color = "#808080";
-yScale_disp.style.color = "#1E1E1E";
-xFreq_disp.style.color = "#501D66";
-yFreq_disp.style.color = "#A42F2B";
-d_disp.style.color = "#117536";
-xScale_disp.style.fontWeight = "666";
-yScale_disp.style.fontWeight = "666";
-xFreq_disp.style.fontWeight = "666";
-yFreq_disp.style.fontWeight = "666";
-d_disp.style.fontWeight = "666";
-
-//resize parameter controls
-let paramsDiv = document.getElementById("paramsDiv");
-paramsDiv.width = lissaCanv.width;
 
 //draw initial curve
 drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
