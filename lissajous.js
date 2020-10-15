@@ -67,11 +67,16 @@ yScale_disp.innerHTML = parseFloat(scaleB).toFixed(2);
 xFreq_disp.innerHTML = parseFloat(freqA).toFixed(2);
 yFreq_disp.innerHTML = parseFloat(freqB).toFixed(2);
 d_disp.innerHTML = parseFloat(d).toFixed(2);
-xScale_disp.style.color = "#8A8A8A";
+xScale_disp.style.color = "#808080";
 yScale_disp.style.color = "#1E1E1E";
 xFreq_disp.style.color = "#501D66";
 yFreq_disp.style.color = "#A42F2B";
-d_disp.style.color = "#FFFFFF";
+d_disp.style.color = "#117536";
+xScale_disp.style.fontWeight = "666";
+yScale_disp.style.fontWeight = "666";
+xFreq_disp.style.fontWeight = "666";
+yFreq_disp.style.fontWeight = "666";
+d_disp.style.fontWeight = "666";
 
 //resize parameter controls
 let paramsDiv = document.getElementById("paramsDiv");

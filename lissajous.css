@@ -32,7 +32,7 @@ body {
   }
 
 #title {
-  margin:-5px auto 2px;
+  margin:-2px auto 4px;
   font-family:monospace;
   font-size:5.5em;
   text-decoration:underline;
@@ -78,19 +78,19 @@ body {
     color:#000000;
   }
   #xFreq-disp {
-    color:#E95445;
+
   }
   #yFreq-disp {
-    color:#5AE585;
+
   }
   #xScale-disp {
-    color:#5AE4E5;
+
   }
   #yScale-disp {
-    color:#6D83E9;
+
   }
   #d-disp {
-    color:#C856EC;
+
   }
 
 .paramInput {
@@ -121,13 +121,13 @@ body {
       background:#A42F2B;
     }
     #xScale::-webkit-slider-thumb {
-      background:#8A8A8A;
+      background:#808080;
     }
     #yScale::-webkit-slider-thumb {
       background:#1E1E1E;
     }
     #pShift::-webkit-slider-thumb {
-      background:#FFFFFF;
+      background:#117536;
     }
   .paramInput::-moz-range-thumb {
     width:24px;
