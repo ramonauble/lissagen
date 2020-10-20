@@ -13,10 +13,10 @@
       <p id="title">lissajous</p>
 			<div id="eqDiv">
 				<p id="xEq">
-					x = <span id="xScale_disp">A</span>sin(<span id="xFreq_disp">a</span>t + <span id="d_disp">δ</span>)
+					x = <span id="xScale_disp">A</span>sin(<span id="xFreq_disp">a</span>πt + <span id="d_disp">δ</span>)
 				</p>
 				<p id="yEq">
-					y = <span id="yScale_disp">B</span>sin(<span id="yFreq_disp">b</span>t)
+					y = <span id="yScale_disp">B</span>sin(<span id="yFreq_disp">b</span>πt)
 				</p>
 			</div>
       <canvas id="lissaCanv"></canvas>
@@ -30,6 +30,14 @@
 				<input id="yScale" class="paramInput half" type="range" min="0" max="1"
 				value="1" step=".0001" oninput="paramInput(this.id, this.value)"></input>
 				<input id="pShift" class="paramInput full" type="range" min="0" max="6.28318"
+				value="0" step=".000001" oninput="paramInput(this.id, this.value)"></input>
+			</div>
+			<div id="modDiv">
+				<input id="modDest1" class="paramInput thirds" type="range" min="0" max="1"
+				value="0" step=".000001" oninput="paramInput(this.id, this.value)"></input>
+				<input id="modSpeed1" class="paramInput thirds" type="range" min="0" max="1"
+				value="0" step=".000001" oninput="paramInput(this.id, this.value)"></input>
+				<input id="modShape1" class="paramInput thirds" type="range" min="0" max="1"
 				value="0" step=".000001" oninput="paramInput(this.id, this.value)"></input>
 			</div>
     </div>
