@@ -29,6 +29,7 @@ let xFreq_disp = document.getElementById("xFreq_disp");
 let yFreq_disp = document.getElementById("yFreq_disp");
 let d_disp = document.getElementById("d_disp");
 let paramsDiv = document.getElementById("paramsDiv");
+let modDiv = document.getElementById("modDiv");
 
 //resize title text
 let title = document.getElementById("title");
@@ -38,6 +39,7 @@ title.style.fontSize = titleFont;
 
 //resize parameter controls
 paramsDiv.width = lissaCanv.width;
+modDiv.width = lissaCanv.width;
 
 //size and style equations
 xEq.style.fontSize = (title.width/30) + "px";
@@ -52,9 +54,9 @@ yScale_disp.innerHTML = "1.00";
 xFreq_disp.innerHTML = "1.00";
 yFreq_disp.innerHTML = "1.00";
 d_disp.innerHTML = "0.00";
-xScale_disp.style.color = "#808080";
+xScale_disp.style.color = "#777777";
 yScale_disp.style.color = "#1E1E1E";
-xFreq_disp.style.color = "#501D66";
+xFreq_disp.style.color = "#6A4086";
 yFreq_disp.style.color = "#A42F2B";
 d_disp.style.color = "#117536";
 xScale_disp.style.fontWeight = "666";

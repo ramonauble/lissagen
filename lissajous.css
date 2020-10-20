@@ -29,6 +29,7 @@ body {
     border-color:#BB94B0;
     background-color:#D8B9D0;
     text-align:center;
+    overflow:auto;
   }
 
 #title {
@@ -46,19 +47,24 @@ body {
   display:block;
 }
 
-#paramsDiv, #eqDiv{
+#paramsDiv, #eqDiv, #modDiv {
   display:block;
   text-align:center;
   max-width:421px;
 }
   #paramsDiv {
     margin:0 auto;
-    padding:5px 0px 0px;
+    padding:5px 0px 5px;
   }
   #eqDiv {
     margin:-2px auto 2px;
     padding:0px 0px;
   }
+  #modDiv {
+    margin:0px auto;
+    padding:5px 0px 5px;
+  }
+
 
 #xEq, #yEq {
   display:inline-block;
@@ -94,7 +100,6 @@ body {
   }
 
 .paramInput {
-  height:20px;
   display:inline-block;
   -webkit-appearance:none;
   appearance:none;
@@ -115,19 +120,28 @@ body {
     cursor:pointer;
   }
     #xFreq::-webkit-slider-thumb {
-      background:#501D66;
+      background:#6A4086;
     }
     #yFreq::-webkit-slider-thumb {
       background:#A42F2B;
     }
     #xScale::-webkit-slider-thumb {
-      background:#808080;
+      background:#777777;
     }
     #yScale::-webkit-slider-thumb {
       background:#1E1E1E;
     }
     #pShift::-webkit-slider-thumb {
       background:#117536;
+    }
+    #modDest1::-webkit-slider-thumb {
+      background:#6A4086;
+    }
+    #modSpeed1::-webkit-slider-thumb {
+      background:#4A68A9;
+    }
+    #modShape1::-webkit-slider-thumb {
+      background:#FFF688;
     }
   .paramInput::-moz-range-thumb {
     width:24px;
@@ -136,9 +150,14 @@ body {
     cursor:pointer;
   }
   .full {
+    height:20px;
     width:97%;
   }
   .half {
-    display:inline-block;
+    height:20px;
     width:48%;
+  }
+  .thirds {
+    height:20px;
+    width:31.6%
   }
