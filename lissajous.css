@@ -2,6 +2,19 @@ body {
   font-size:100%;
 }
 
+::-webkit-scrollbar {
+  width:12px;
+}
+::-webkit-scrollbar-track {
+  background:#E3C7DC;
+}
+::-webkit-scrollbar-thumb {
+  background:#966F8B;
+}
+::-webkit-scrollbar-thumb:hover {
+  background:#73566B;
+}
+
 .pageBorder {
   left:0;
   right:0;
