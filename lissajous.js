@@ -7,7 +7,7 @@ let freqA = 1;   //frequency of x
 let freqB = 1;   //frequency of y
 let d = 0;       //δ - phase shift of x
 //initialize independent variable
-let tMin = 0;       //starting pos. of independent variable t
+let tMin = -1;       //starting pos. of independent variable t
 let tMax = 1;       //ending pos. of t
 let tStep = .00001; //step size of each calculation
 //initialize curve color
@@ -29,10 +29,10 @@ function drawLis (scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep) {
     let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
     let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
     let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
-    plane.data[pixelIndex] = Math.floor(196*(freqA/250)*(scaleA/2));
-    plane.data[pixelIndex + 1] = Math.floor(196*(freqB/250)*(scaleB/2));
-    plane.data[pixelIndex + 2] = Math.floor(196*(d/(4*pi)));
-    plane.data[pixelIndex + 3] = Math.floor(a);
+    plane.data[pixelIndex] = Math.floor(196*(freqA/250)*(scaleA/2));  //red
+    plane.data[pixelIndex + 1] = Math.floor(128*(freqB/250)*(scaleB/2));  //green
+    plane.data[pixelIndex + 2] = Math.floor(128*(d/(4*pi)));  //blue
+    plane.data[pixelIndex + 3] = Math.floor(a); //alpha
   }
   lissaCtx.putImageData(plane, 0, -1);
 }

@@ -4,15 +4,15 @@ const lissaCtx = lissaCanv.getContext("2d");
 
 //size the canvas according to innerWidth of window object
 //capped at 421px;
-if (window.innerWidth > 480) {
-  lissaCanv.width = 421;
-  lissaCanv.height = 421;
+if (window.innerWidth > 572) {
+  lissaCanv.width = 511;
+  lissaCanv.height = 511;
 } else {
   if (window.innerWidth % 2 == 0) { //inner width even
-    lissaCanv.width = (window.innerWidth - 61);
+    lissaCanv.width = (window.innerWidth - 29);
     lissaCanv.height = lissaCanv.width;
   } else {                          //inner width odd
-    lissaCanv.width = (window.innerWidth - 60);
+    lissaCanv.width = (window.innerWidth - 28);
     lissaCanv.height = lissaCanv.width;
   }
 }
@@ -28,18 +28,23 @@ let yScale_disp = document.getElementById("yScale_disp");
 let xFreq_disp = document.getElementById("xFreq_disp");
 let yFreq_disp = document.getElementById("yFreq_disp");
 let d_disp = document.getElementById("d_disp");
-let paramsDiv = document.getElementById("paramsDiv");
+let paramsDiv1 = document.getElementById("paramsDiv1");
+let paramsDiv2 = document.getElementById("paramsDiv2");
 let modDiv = document.getElementById("modDiv");
 
 //resize title text
 let title = document.getElementById("title");
 title.width = lissaCanv.width;
-let titleFont = (title.width/9) + "px";
+let titleFont = (title.width/10.5) + "px";
 title.style.fontSize = titleFont;
+title.style.display = "none"; //temp. hide title text
 
 //resize parameter controls
-paramsDiv.width = lissaCanv.width;
-modDiv.width = lissaCanv.width;
+paramsDiv1.style.width = lissaCanv.width + "px";
+paramsDiv2.style.width = lissaCanv.width + "px";
+modDiv.style.width = lissaCanv.width + "px";
+paramsDiv2.style.display = "none";  //init hide params2
+modDiv.style.display = "none"; //init hide mod params
 
 //size and style equations
 xEq.style.fontSize = (title.width/30) + "px";

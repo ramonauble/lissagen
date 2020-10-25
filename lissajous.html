@@ -11,6 +11,7 @@
     <div class="pageBorder middle">
     <div class="pageBorder inner">
       <p id="title">lissajous</p>
+      <canvas id="lissaCanv"></canvas>
 			<div id="eqDiv">
 				<p id="xEq">
 					x = <span id="xScale_disp">A</span>sin(<span id="xFreq_disp">a</span>πt + <span id="d_disp">δ</span>)
@@ -19,18 +20,20 @@
 					y = <span id="yScale_disp">B</span>sin(<span id="yFreq_disp">b</span>πt)
 				</p>
 			</div>
-      <canvas id="lissaCanv"></canvas>
-			<div id="paramsDiv">
+			<div id="paramsDiv1">
 				<input id="xFreq" class="paramInput full" type="range" min="1" max="250"
 				value="1" step=".0001" oninput="paramInput(this.id, this.value)"></input>
 				<input id="yFreq" class="paramInput full" type="range" min="1" max="250"
 				value="1" step=".0001" oninput="paramInput(this.id, this.value)"></input>
+				<input id="pShift" class="paramInput full" type="range" min="0" max="6.28318"
+				value="0" step=".000001" oninput="paramInput(this.id, this.value)"></input>
 				<input id="xScale" class="paramInput half" type="range" min="0" max="1"
 				value="1" step=".0001" oninput="paramInput(this.id, this.value)"></input>
 				<input id="yScale" class="paramInput half" type="range" min="0" max="1"
 				value="1" step=".0001" oninput="paramInput(this.id, this.value)"></input>
-				<input id="pShift" class="paramInput full" type="range" min="0" max="6.28318"
-				value="0" step=".000001" oninput="paramInput(this.id, this.value)"></input>
+			</div>
+			<div id="paramsDiv2">
+
 			</div>
 			<div id="modDiv">
 				<input id="modDest1" class="paramInput thirds" type="range" min="0" max="1"

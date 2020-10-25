@@ -3,7 +3,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width:12px;
+  width:6px;
 }
 ::-webkit-scrollbar-track {
   background:#E3C7DC;
@@ -24,21 +24,21 @@ body {
   .outer {
     position:fixed;
     border-style:solid;
-    border-width:15px;
+    border-width:8px;
     border-color:#604559;
     background-color:#966F8B;
   }
   .middle {
     position:absolute;
     border-style:solid;
-    border-width:10px;
+    border-width:4px;
     border-color:#966F8B;
     background-color:#BB94B0;
   }
   .inner {
     position:absolute;
     border-style:solid;
-    border-width:5px;
+    border-width:2px;
     border-color:#BB94B0;
     background-color:#D8B9D0;
     text-align:center;
@@ -50,28 +50,27 @@ body {
   font-family:monospace;
   font-size:5.5em;
   text-decoration:underline;
-  max-width:421px;
 }
 
 #lissaCanv {
   background-color:#F0D2E8;
-  margin:0 auto;
+  margin:2px auto 0px;
   border:none;
   display:block;
 }
 
-#paramsDiv, #eqDiv, #modDiv {
+#paramsDiv1, #paramsDiv2, #eqDiv, #modDiv {
   display:block;
   text-align:center;
-  max-width:421px;
 }
-  #paramsDiv {
+  #paramsDiv1, #paramsDiv2 {
     margin:0 auto;
     padding:5px 0px 5px;
   }
   #eqDiv {
-    margin:-2px auto 2px;
+    margin:3px auto -3px;
     padding:0px 0px;
+    border-radius:3px;
   }
   #modDiv {
     margin:0px auto;
@@ -117,10 +116,11 @@ body {
   -webkit-appearance:none;
   appearance:none;
   outline:none;
-  opacity:.85;
+  opacity:.75;
   transition:opacity .15s;
   margin:2px auto;
   background:#BB94B0;
+  border-radius:3px;
 }
   .paramInput:hover {
     opacity:1;
@@ -131,6 +131,7 @@ body {
     width:24px;
     height:24px;
     cursor:pointer;
+    border-radius:3px;
   }
     #xFreq::-webkit-slider-thumb {
       background:#6A4086;
