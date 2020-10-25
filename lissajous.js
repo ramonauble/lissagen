@@ -9,7 +9,7 @@ let d = 0;       //δ - phase shift of x
 //initialize independent variable
 let tMin = -1;       //starting pos. of independent variable t
 let tMax = 1;       //ending pos. of t
-let tStep = .000005; //step size of each calculation
+let tStep = .00001; //step size of each calculation
 //initialize curve color
 let r = 0;   //red
 let g = 0;    //green
@@ -21,10 +21,8 @@ var plane = new ImageData(imgWidth, imgHeight);
 
 //instantiate worker to calculate curves
 var drawCurve = new Worker('drawCurve.js');
-var isDrawing = 1; //bool to represent draw state
 drawCurve.onmessage = function(wPlane) {
   lissaCtx.putImageData(wPlane.data, 0, -1);
-  isDrawing = 0; //clear draw state - ready for next curve
 }
 
 //draw initial curve
@@ -81,8 +79,5 @@ function paramInput (param, value) {
     d = parseFloat(value);
     d_disp.innerHTML = parseFloat(d).toFixed(2);
   }
-  if (!isDrawing) {
-    isDrawing = 1;
-    drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
-  }
+  drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
 }
