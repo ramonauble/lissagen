@@ -47,11 +47,11 @@ paramsDiv2.style.display = "none";  //init hide params2
 modDiv.style.display = "none"; //init hide mod params
 
 //size and style equations
-xEq.style.fontSize = (title.width/30) + "px";
-yEq.style.fontSize = (title.width/30) + "px";
-eqDiv.style.width = (title.width) + "px";
-xEq.style.width = (title.width*.56) + "px";
-yEq.style.width = (title.width*.44) + "px";
+xEq.style.fontSize = (lissaCanv.width/31) + "px";
+yEq.style.fontSize = (lissaCanv.width/31) + "px";
+eqDiv.style.width = (lissaCanv.width) + "px";
+xEq.style.width = (lissaCanv.width*.57) + "px";
+yEq.style.width = (lissaCanv.width*.43) + "px";
 
 //initialize equation display
 xScale_disp.innerHTML = "1.00";
