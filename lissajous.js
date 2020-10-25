@@ -19,22 +19,35 @@ let a = 255;  //alpha (opacity)
 //instantiate imageData object
 var plane = new ImageData(imgWidth, imgHeight);
 
+//instantiate worker to calculate curves
+var drawCurve = new Worker('drawCurve.js');
+var isDrawing = 1; //bool to represent draw state
+drawCurve.onmessage = function(wPlane) {
+  lissaCtx.putImageData(wPlane.data, 0, -1);
+  isDrawing = 0; //clear draw state - ready for next curve
+}
+
 //draw initial curve
 drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
 
 //redraw the curve on input change
 function drawLis (scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep) {
-  plane = new ImageData(imgWidth, imgHeight);
-  for (let t = tMin; t <= tMax; t += tStep) {
-    let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
-    let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
-    let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
-    plane.data[pixelIndex] = Math.floor(128*(freqA/333)*(scaleA/2));  //red
-    plane.data[pixelIndex + 1] = Math.floor(128*(freqB/333)*(scaleB/2));  //green
-    plane.data[pixelIndex + 2] = Math.floor(128*(d/(4*pi)));  //blue
-    plane.data[pixelIndex + 3] = Math.floor(a); //alpha
+  if (window.Worker) {
+    drawCurve.postMessage([scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep,
+    imgWidth, imgHeight]);
+  } else {
+    plane = new ImageData(imgWidth, imgHeight);
+    for (let t = tMin; t <= tMax; t += tStep) {
+      let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
+      let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
+      let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
+      plane.data[pixelIndex] = Math.floor(128*(freqA/333)*(scaleA/2));  //red
+      plane.data[pixelIndex + 1] = Math.floor(128*(freqB/333)*(scaleB/2));  //green
+      plane.data[pixelIndex + 2] = Math.floor(128*(d/(4*pi)));  //blue
+      plane.data[pixelIndex + 3] = Math.floor(a); //alpha
+    }
+    lissaCtx.putImageData(plane, 0, -1);
   }
-  lissaCtx.putImageData(plane, 0, -1);
 }
 
 //convert from cartesian coordinates to an array index
@@ -49,7 +62,7 @@ function cToIndex (imgWidth, imgHeight, x, y) {
 }
 
 function paramInput (param, value) {
-  //0 to 250
+  //1 to 128
   if (param == "xFreq") {
     freqA = parseFloat(value);
     xFreq_disp.innerHTML = parseFloat(freqA).toFixed(2);
@@ -68,5 +81,8 @@ function paramInput (param, value) {
     d = parseFloat(value);
     d_disp.innerHTML = parseFloat(d).toFixed(2);
   }
-  drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
+  if (!isDrawing) {
+    isDrawing = 1;
+    drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
+  }
 }
