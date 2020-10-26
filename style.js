@@ -9,10 +9,10 @@ if (window.innerWidth > 572) {
   lissaCanv.height = 511;
 } else {
   if (window.innerWidth % 2 == 0) { //inner width even
-    lissaCanv.width = (window.innerWidth - 29);
+    lissaCanv.width = (window.innerWidth - 17);
     lissaCanv.height = lissaCanv.width;
   } else {                          //inner width odd
-    lissaCanv.width = (window.innerWidth - 28);
+    lissaCanv.width = (window.innerWidth - 16);
     lissaCanv.height = lissaCanv.width;
   }
 }

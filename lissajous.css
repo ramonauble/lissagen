@@ -24,21 +24,21 @@ body {
   .outer {
     position:fixed;
     border-style:solid;
-    border-width:8px;
+    border-width:4px;
     border-color:#604559;
     background-color:#966F8B;
   }
   .middle {
     position:absolute;
     border-style:solid;
-    border-width:4px;
+    border-width:2px;
     border-color:#966F8B;
     background-color:#BB94B0;
   }
   .inner {
     position:absolute;
     border-style:solid;
-    border-width:2px;
+    border-width:1px;
     border-color:#BB94B0;
     background-color:#D8B9D0;
     text-align:center;
