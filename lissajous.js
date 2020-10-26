@@ -22,7 +22,9 @@ var plane = new ImageData(imgWidth, imgHeight);
 //instantiate worker to calculate curves
 var drawCurve = new Worker('drawCurve.js');
 drawCurve.onmessage = function(wPlane) {
-  lissaCtx.putImageData(wPlane.data, 0, -1);
+  let wPlane_arr = new Uint8ClampedArray(wPlane.data);
+  let wPlane_img = new ImageData(wPlane_arr, imgWidth, imgHeight);
+  lissaCtx.putImageData(wPlane_img, 0, 0);
 }
 
 //draw initial curve
