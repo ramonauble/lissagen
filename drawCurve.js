@@ -14,19 +14,20 @@ onmessage = function(params) {
   let imgHeight = params.data[9];
 
   //calculate curve
-  wPlane = new ImageData(imgWidth, imgHeight);
+  wPlane_buff = new ArrayBuffer((imgWidth * imgHeight * 4));
+  wPlane = new Uint8ClampedArray(wPlane_buff);
   for (let t = tMin; t <= tMax; t += tStep) {
     let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
     let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
     let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
-    wPlane.data[pixelIndex] = Math.floor(128*(freqA/333)*(scaleA/2));  //red
-    wPlane.data[pixelIndex + 1] = Math.floor(128*(freqB/333)*(scaleB/2));  //green
-    wPlane.data[pixelIndex + 2] = Math.floor(128*(d/(4*pi)));  //blue
-    wPlane.data[pixelIndex + 3] = Math.floor(255); //alpha
+    wPlane[pixelIndex] = 0;  //red
+    wPlane[pixelIndex + 1] = 0;  //green
+    wPlane[pixelIndex + 2] = 0;  //blue
+    wPlane[pixelIndex + 3] = Math.floor(255); //alpha
   }
 
   //return newly generated curve to main program
-  postMessage(wPlane);
+  postMessage(wPlane_buff, [wPlane_buff]);
 }
 
 //convert from cartesian coordinates to an array index
