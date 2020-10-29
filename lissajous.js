@@ -1,14 +1,14 @@
 //define pi
 const pi = Math.PI;
 //initialize curve parameters
-let scaleA = 1;     //scaling factor for x
-let scaleB = 1;     //scaling factor for y
-let freqA = 1;   //frequency of x
-let freqB = 1;   //frequency of y
-let d = 0;       //δ - phase shift of x
+let scaleA = 1.0;     //scaling factor for x
+let scaleB = 1.0;     //scaling factor for y
+let freqA = 1.0;   //frequency of x
+let freqB = 1.0;   //frequency of y
+let d = 0.0;       //δ - phase shift of x
 //initialize independent variable
-let tMin = -1;       //starting pos. of independent variable t
-let tMax = 1;       //ending pos. of t
+let tMin = -1.0;       //starting pos. of independent variable t
+let tMax = 1.0;       //ending pos. of t
 let tStep = .00001; //step size of each calculation
 //initialize curve color
 let r = 0;   //red
@@ -33,18 +33,19 @@ drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
 //redraw the curve on input change
 function drawLis (scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep) {
   if (window.Worker) {
-    drawCurve.postMessage([scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep,
-    imgWidth, imgHeight]);
+    let paramsArr = [scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep,
+    imgWidth, imgHeight];
+    drawCurve.postMessage(paramsArr);
   } else {
     plane = new ImageData(imgWidth, imgHeight);
     for (let t = tMin; t <= tMax; t += tStep) {
       let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
       let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
       let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
-      plane.data[pixelIndex] = Math.floor(128*(freqA/333)*(scaleA/2));  //red
-      plane.data[pixelIndex + 1] = Math.floor(128*(freqB/333)*(scaleB/2));  //green
-      plane.data[pixelIndex + 2] = Math.floor(128*(d/(4*pi)));  //blue
-      plane.data[pixelIndex + 3] = Math.floor(a); //alpha
+      plane.data[pixelIndex] = 0;  //red
+      plane.data[pixelIndex + 1] = 0;  //green
+      plane.data[pixelIndex + 2] = 0;  //blue
+      plane.data[pixelIndex + 3] = a; //alpha
     }
     lissaCtx.putImageData(plane, 0, -1);
   }
