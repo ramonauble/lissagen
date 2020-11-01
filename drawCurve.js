@@ -1,7 +1,12 @@
+//define constants and generate initital linspace
 const pi = Math.PI;
+importScripts("gpu-browser.min.js");
+const gpu = new GPU();
+const tSpace = linspace(-1, 1, .00001);
 
+//execute whenever main thread posts message to worker
 onmessage = function(params) {
-  //initialize internal variables
+  //initialize internal parameter variables
   let scaleA = params.data[0];
   let scaleB = params.data[1];
   let freqA = params.data[2];
@@ -13,38 +18,54 @@ onmessage = function(params) {
   let imgWidth = params.data[8];
   let imgHeight = params.data[9];
 
-  //precalculate static values prior to curve loop
-  let quadWidth = (imgWidth - 1)/2;
-  let quadHeight = (imgHeight - 1)/2;
+  //precalculate static values
+  let qWidth = (imgWidth - 1)/2;
+  let qHeight = (imgHeight - 1)/2;
   let radFreqA = freqA*pi;
   let radFreqB = freqB*pi;
-  let scaledWidth = scaleA*quadWidth;
-  let scaledHeight = scaleB*quadWidth;
+  let sWidth = scaleA*qWidth;
+  let sHeight = scaleB*qWidth;
+  let arraySize = (imgWidth * imgHeight * 4);
 
-  //calculate curve
-  wPlane_buff = new ArrayBuffer((imgWidth * imgHeight * 4));
-  wPlane = new Uint8ClampedArray(wPlane_buff);
-  for (let t = tMin; t <= tMax; t += tStep) {
-    let x_lis = Math.floor(scaledWidth*Math.sin(radFreqA*t + d));
-    let y_lis = Math.floor(scaledHeight*Math.sin(radFreqB*t));
-    let pixelIndex = cToIndex(imgWidth, quadWidth, quadHeight, x_lis, y_lis);
-    wPlane[pixelIndex] = 0;  //red
-    wPlane[pixelIndex + 1] = 0;  //green
-    wPlane[pixelIndex + 2] = 0;  //blue
-    wPlane[pixelIndex + 3] = 255; //alpha
+  //define function to use GPU for multithreaded calculation of curve indeces
+  const calcPos = gpu.createKernel(function(tSpace, sWidth, sHeight,
+  radFreqA, radFreqB, d, qWidth, qHeight, imgWidth) {
+    let x_lis = Math.floor(sWidth*Math.sin(radFreqA*tSpace[this.thread.x] + d));
+    let y_lis = Math.floor(sHeight*Math.sin(radFreqB*tSpace[this.thread.x]));
+    let x_n = qWidth + x_lis;
+    let y_n = qHeight - y_lis;
+    let pixelIndex = (y_n * imgWidth * 4) + (x_n * 4);
+    return pixelIndex;
+  }).setOutput([tSpace.length]);
+
+  //use previously defined function to generate an array of curve indeces
+  posArray = calcPos(tSpace, sWidth, sHeight, radFreqA, radFreqB, d,
+    qWidth, qHeight, imgWidth);
+
+  //instantiate frame buffer & view
+  wPlane_buff = new ArrayBuffer(arraySize);
+  wPlane = new Uint8Array(wPlane_buff);
+
+  //loop through array of pixel indeces & assign RGB values
+  for (let pIndex = 0; pIndex < posArray.length; pIndex++) {
+    wPlane[posArray[pIndex]] = 0;  //red
+    wPlane[posArray[pIndex] + 1] = 0;  //green
+    wPlane[posArray[pIndex] + 2] = 0;  //blue
+    wPlane[posArray[pIndex] + 3] = 255; //alpha
   }
 
-  //return newly generated curve to main thread as buffer
+  //transfer newly generated curve to main thread as buffer
   postMessage(wPlane_buff, [wPlane_buff]);
 }
 
-//convert from cartesian coordinates to an array index
-//dimensions of image data must be odd & equal (for symmetry of quadrants)
-function cToIndex (imgWidth, quadWidth, quadHeight, x, y) {
-  //first, convert cartesian to normalized
-  let x_n = quadWidth + x;
-  let y_n = quadHeight - y;
-  //next, convert from normalized to array index
-  let index = (y_n * imgWidth * 4) + (x_n * 4);
-  return index;
+//function to calculate an array of linearly spaced values
+//running from [start, end), in steps of res
+function linspace (start, end, res) {
+  let linspace = new Float32Array(Math.ceil(Math.abs(start - end)/res));
+  let lindex = 0;
+  for (t = start; t <= end; t+= res) {
+    linspace[lindex] = t;
+    lindex++;
+  }
+  return linspace;
 }
