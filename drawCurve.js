@@ -44,14 +44,18 @@ onmessage = function(params) {
 
   //instantiate frame buffer & view
   wPlane_buff = new ArrayBuffer(arraySize);
-  wPlane = new Uint8Array(wPlane_buff);
+  wPlane = new Uint8ClampedArray(wPlane_buff);
 
   //loop through array of pixel indeces & assign RGB values
+  let prevIndex = posArray[0]; //initialize previous index
   for (let pIndex = 0; pIndex < posArray.length; pIndex++) {
-    wPlane[posArray[pIndex]] = 0;  //red
-    wPlane[posArray[pIndex] + 1] = 0;  //green
-    wPlane[posArray[pIndex] + 2] = 0;  //blue
-    wPlane[posArray[pIndex] + 3] = 255; //alpha
+    if (prevIndex != posArray[pIndex] || pIndex == 0) {
+      wPlane[posArray[pIndex]] = 72;  //red
+      wPlane[posArray[pIndex] + 1] = 45;  //green
+      wPlane[posArray[pIndex] + 2] = 82;  //blue
+      wPlane[posArray[pIndex] + 3] = 255; //alpha
+    }
+    prevIndex = posArray[pIndex]; //save previous position
   }
 
   //transfer newly generated curve to main thread as buffer

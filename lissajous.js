@@ -42,9 +42,9 @@ function drawLis (scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep) {
       let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
       let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
       let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
-      plane.data[pixelIndex] = 0;  //red
-      plane.data[pixelIndex + 1] = 0;  //green
-      plane.data[pixelIndex + 2] = 0;  //blue
+      plane.data[pixelIndex] = 72;  //red
+      plane.data[pixelIndex + 1] = 45;  //green
+      plane.data[pixelIndex + 2] = 82;  //blue
       plane.data[pixelIndex + 3] = a; //alpha
     }
     lissaCtx.putImageData(plane, 0, -1);
