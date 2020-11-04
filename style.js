@@ -1,3 +1,5 @@
+'use strict';
+
 //define canvas reference
 const lissaCanv = document.getElementById("lissaCanv");
 const lissaCtx = lissaCanv.getContext("2d");
