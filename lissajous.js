@@ -1,15 +1,17 @@
+'use strict';
+
 //define pi
 const pi = Math.PI;
 //initialize curve parameters
-let scaleA = 1.0;     //scaling factor for x
-let scaleB = 1.0;     //scaling factor for y
-let freqA = 1.0;   //frequency of x
-let freqB = 1.0;   //frequency of y
-let d = 0.0;       //δ - phase shift of x
+var scaleA = 1.0;     //scaling factor for x
+var scaleB = 1.0;     //scaling factor for y
+var freqA = 1.0;   //frequency of x
+var freqB = 1.0;   //frequency of y
+var d = 0.0;       //δ - phase shift of x
 //initialize independent variable
-let tMin = -1.0;       //starting pos. of independent variable t
-let tMax = 1.0;       //ending pos. of t
-let tStep = .00001; //step size of each calculation
+var tMin = -1.0;       //starting pos. of independent variable t
+var tMax = 1.0;       //ending pos. of t
+var tStep = .00001; //step size of each calculation
 //initialize curve color
 let r = 0;   //red
 let g = 0;    //green
@@ -28,10 +30,10 @@ drawCurve.onmessage = function(wPlane) {
 }
 
 //draw initial curve
-drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
+drawLis();
 
 //redraw the curve on input change
-function drawLis (scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep) {
+function drawLis () {
   if (window.Worker) {
     let paramsArr = [scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep,
     imgWidth, imgHeight];
@@ -42,9 +44,9 @@ function drawLis (scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep) {
       let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
       let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
       let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
-      plane.data[pixelIndex] = 72;  //red
-      plane.data[pixelIndex + 1] = 45;  //green
-      plane.data[pixelIndex + 2] = 82;  //blue
+      plane.data[pixelIndex] = 0;  //red
+      plane.data[pixelIndex + 1] = 0;  //green
+      plane.data[pixelIndex + 2] = 0;  //blue
       plane.data[pixelIndex + 3] = a; //alpha
     }
     lissaCtx.putImageData(plane, 0, -1);
@@ -82,5 +84,5 @@ function paramInput (param, value) {
     d = parseFloat(value);
     d_disp.innerHTML = parseFloat(d).toFixed(2);
   }
-  drawLis(scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep);
+  drawLis();
 }
