@@ -38,12 +38,11 @@ onmessage = function(params) {
     let pixelIndex = (y_n * imgWidth * 4) + (x_n * 4);
     return pixelIndex;
   })
-    .setPipeline(true)
     .setOutput([200000]);
 
   //use previously defined function to generate an array of curve indeces
   let posArray = calcPos(sWidth, sHeight, radFreqA, radFreqB, d,
-    qWidth, qHeight, imgWidth).toArray();
+    qWidth, qHeight, imgWidth);
 
   //instantiate frame buffer & view
   let wPlane_buff = new ArrayBuffer(arraySize);
