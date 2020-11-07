@@ -37,11 +37,13 @@ onmessage = function(params) {
     let y_n = qHeight - y_lis;
     let pixelIndex = (y_n * imgWidth * 4) + (x_n * 4);
     return pixelIndex;
-  }).setOutput([200000]);
+  })
+    .setPipeline(true)
+    .setOutput([200000]);
 
   //use previously defined function to generate an array of curve indeces
   let posArray = calcPos(sWidth, sHeight, radFreqA, radFreqB, d,
-    qWidth, qHeight, imgWidth);
+    qWidth, qHeight, imgWidth).toArray();
 
   //instantiate frame buffer & view
   let wPlane_buff = new ArrayBuffer(arraySize);
@@ -58,8 +60,20 @@ onmessage = function(params) {
     }
     prevIndex = posArray[pIndex]; //save previous position
   }
-  calcPos.destroy();
 
+  calcPos.destroy();
   //transfer newly generated curve to main thread as buffer
   postMessage(wPlane_buff, [wPlane_buff]);
+}
+
+//function to calculate an array of linearly spaced values
+//running from [start, end), in steps of res
+function linspace (start, end, res) {
+  let linspace = new Float32Array(Math.ceil(Math.abs(start - end)/res));
+  let lindex = 0;
+  for (t = start; t <= end; t+= res) {
+    linspace[lindex] = t;
+    lindex++;
+  }
+  return linspace;
 }
