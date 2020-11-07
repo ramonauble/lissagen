@@ -175,3 +175,27 @@ body {
     height:20px;
     width:31.6%
   }
+    #xFreq::-moz-range-thumb {
+      background:#6A4086;
+    }
+    #yFreq::-moz-range-thumb {
+      background:#A42F2B;
+    }
+    #xScale::-moz-range-thumb {
+      background:#777777;
+    }
+    #yScale::-moz-range-thumb {
+      background:#1E1E1E;
+    }
+    #pShift::-moz-range-thumb {
+      background:#117536;
+    }
+    #modDest1::-moz-range-thumb {
+      background:#6A4086;
+    }
+    #modSpeed1::-moz-range-thumb {
+      background:#4A68A9;
+    }
+    #modShape1::-moz-range-thumb {
+      background:#FFF688;
+    }
