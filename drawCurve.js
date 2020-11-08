@@ -3,7 +3,7 @@
 //define constants and generate initital linspace
 const pi = Math.PI;
 importScripts("gpu-browser.min.js");
-const gpu = new GPU();
+const gpu = new GPU({mode: 'webgl2'});
 
 //execute whenever main thread posts message to worker
 onmessage = function(params) {
