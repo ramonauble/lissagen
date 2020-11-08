@@ -3,7 +3,7 @@
 //define constants and generate initital linspace
 const pi = Math.PI;
 importScripts("gpu-browser.min.js");
-const gpu = new GPU({mode: 'webgl2'});
+const gpu = new GPU();
 
 //execute whenever main thread posts message to worker
 onmessage = function(params) {
@@ -37,8 +37,10 @@ onmessage = function(params) {
     let y_n = qHeight - y_lis;
     let pixelIndex = (y_n * imgWidth * 4) + (x_n * 4);
     return pixelIndex;
-  })
-    .setOutput([200000]);
+  }, {
+    optimizeFloatMemory: true,
+    tactic: 'speed',
+    output: [200000]});
 
   //use previously defined function to generate an array of curve indeces
   let posArray = calcPos(sWidth, sHeight, radFreqA, radFreqB, d,
