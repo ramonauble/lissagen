@@ -31,8 +31,8 @@ onmessage = function(params) {
   //define function to use GPU for multithreaded calculation of curve indeces
   const calcPos = gpu.createKernel(function(sWidth, sHeight,
   radFreqA, radFreqB, d, qWidth, qHeight, imgWidth) {
-    let x_lis = Math.floor(sWidth*Math.sin(radFreqA*(-1 + (this.thread.x/100000)) + d));
-    let y_lis = Math.floor(sHeight*Math.sin(radFreqB*(-1 + (this.thread.x/100000))));
+    let x_lis = Math.floor(sWidth*Math.sin(radFreqA*(-1 + (this.thread.x/106250)) + d));
+    let y_lis = Math.floor(sHeight*Math.sin(radFreqB*(-1 + (this.thread.x/106250))));
     let x_n = qWidth + x_lis;
     let y_n = qHeight - y_lis;
     let pixelIndex = (y_n * imgWidth * 4) + (x_n * 4);
@@ -62,6 +62,7 @@ onmessage = function(params) {
     prevIndex = posArray[pIndex]; //save previous position
   }
 
+  //clear instantiated kernel from memory
   calcPos.destroy();
   //transfer newly generated curve to main thread as buffer
   postMessage(wPlane_buff, [wPlane_buff]);
