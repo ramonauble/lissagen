@@ -1,82 +1,49 @@
-parametric lissajous curve generator
+lissagen v.1
+a parametric lissajous curve generator
 by ramona a
 10-11-20
-------------------------------------------------------------------------
 
-• a lissajous curve comes to be when two sinusoidal inputs are taken as
-separate x & y coordinates within a signed 2 dimensional plane
-• the resulting points are graphed by iterating the independent variable t over
-a predetermined range [tMin, tMax], in steps of tStep
-• the frequencies of each sinusoid are multiplied by t for every value of t
-  within this range, giving an output of ((tMax - tMin)/tStep) unique points
-• each unique point, defined by (x, y), will always fall between [-1, 1] on both
-  axes (since each coordinate is a sinusoid, which is a bounded function)
-• the x & y coordinates of the resulting set of points are then multiplied by half
-  of one less than the absolute boundary of the total canvas width (imgWidth), giving
-  a scaled bounded output on both axes between [-(imgWidth - 1)/2, (imgWidth - 1)/2]
-  • canvas area is rectangular, so imgWidth == imgHeight in this case
+────────────────────────────────────────────────────────────────────────
+• lissagen is a web app for visualizing static lissajous curves
+• two sinusoids are plotted using cartesian coordinates on a 2D plane
+  (implemented as a canvas)
+• the "=instantaneous" outputs of each sinusoid (A & B) at "time" t
+  determine the x & y coordinates of each graphed pixel
+• t, as a parameter, is iterated over the range [-1, 1] in steps of
+  tStep (currently set at .000008)
+• for each value of t, a unique pair of coordinates (x, y) is generated,
+  representing the instantaneous amplitudes of sinusoids A & B at time t
+• the sampled values for any given time t are determined by the parameters
+  of each sinusoid
+  • frequency is directly related to the width of the "gap" between each
+    adjacent sample, expressed in radians
+    • in other words, the number of radians "moved through" on each sample
+      increases as the radial frequency is increased
+  • phase introduces a linear phase offset into sinusoid A, between [0, 2π]
+  • scale is applied after the calculation of each instantaneous amplitude,
+    scaling the output by a factor between [0, 1]
 
-the curve itself is defined by the set of parametric equations:
-  • x = Asin(at + δ)
-  • y = Bsin(bt)
+────────────────────────────────────────────────────────────────────────
+• this project currently uses GPU.JS to increase the speed of the calculations,
+  offloading the bulk of the processing from the worker thread to the GPU
+• the curve indeces are calculated in parallel, and are then iterated through
+  to color & draw each pixel
+• the curve is recalculated on each input parameter change event
 
-in this case, the following parameters are defined:
-  • A & B
-    • these act as scaling factors, stretching or compressing the
-      corresponding x or y coordinates on the plane
-      • a change in A affects the horizontal scaling (x)
-      • a change in B affects the vertical scaling (y)
-    • A/B expresses the overall width to height ratio of the curve
-  • a & b
-    • these parameters control the frequencies of their respective
-      sinusoids, expressed in radians
-      • a change in a modifies the horizontal frequency (left-right)
-      • a change in b modifies the vertical frequency (up-down)
-    • if a/b is rational, the curve will have a definite number of
-      horizontal and vertical "lobes", and will be closed
-    • if a/b is irrational, the curve will be open, and potentially
-      very complex (beautiful :])
-  • δ
-    • this parameter controls the amount of phase shift (in radians)
-      between the horizontal and vertical sinusoids
-    • visually, modifying this parameter "rotates" the viewing angle
-      of the curve, as if the curve itself is a 2 dimensional cross
-      section of a 3 dimensional solid
-    • to understand this intuitively, consider a very simple curve
-      with a & b == 2π, A & B == 1, and δ == 0
-      • this appears as a straight line, with a slope of exactly 1
-      • sweeping δ from 0 to 2π smoothly changes the curve from
-        a line (δ == 0), to an ellipse (δ == (0, π/2)), to a circle
-        (δ == π/2), to an ellipse (δ == (π/2, π)), back to a line
-        (δ == π); then again to an ellipse (δ == (π, 3π/2)), to
-        another circle (δ == 3π/2), to an ellipse (δ == (3π/2, 2π)),
-        and finally back to a line (δ == 2π)
-      • taken as one contiguous motion, this entire sweep defines a
-        sphere, expressed as a series of 2 dimensional cross sections
-  • t (the independent variable) is swept from 0 to 1 in steps of
-    .00001, thus allowing the curve itself to be graphed on the plane
-      • the boundaries of t, as well as the resolution of the sweep,
-        can also be considered as "parameters", in that changing them
-        affects the ultimate appearance of the curve
+────────────────────────────────────────────────────────────────────────
+• future developments will include
+  • recalculating the curve using a requestAnimationFrame loop, sampling
+    the parameter values only when needed & redrawing the figure only once
+    for each frame
+  • generating the sinusoids with WebAudio API (instead of using the standard
+    Math.sin() function) and sampling their instantaneous outputs to display
+    on the canvas directly
+  • parameter automation using WebAudio API, to allow for realtime modulation
+    of the curve parameters (frequency, phase & scale)
+  • image output and/or canvas record, to allow for direct saving of curve
+    images & animations
 
-the point of this project is multifold:
-  • to allow anyone to interactively explore the complex beauty of the
-    lissajous curve, without necessarily understanding it in full
-    • in this regard, i believe that mathematical comprehension can be
-      "seeded" in anyone, by spending time appreciating its facets
-      intuitively (looking at the curve and observing how it changes
-      as its parameters are changed)
-  • to develop a method of plotting cartesian coordinates on the canvas
-    element natively
-    • the function cToIndex takes the width & height of an arbitrary
-      imageData object, as well as the coordinates to be plotted, and
-      returns the starting index (R) of the corresponding pixel in the
-      imageData array, in RGBA format
-    • this allows the canvas to be addressed as a signed coordinate
-      plane, spanning the inclusive range:
-        • x = +/-(width - 1)/2, y = +/-(height - 1)/2
-    • present restriction is that the image data object must be of odd
-      and equal dimension, for the quadrants to retain symmetry across
-      both axes
-  • for my own enjoyment - i love synthesis (both audio & visual), and
-    never cease to be charmed by the emergent beauty of mathematics <3
+────────────────────────────────────────────────────────────────────────
+• always open to suggestions for improvement - if you see something you'd
+  like changed, feel free to write me - ramona@rsyn.co - or just fork it and
+  go buck wild ^-^
