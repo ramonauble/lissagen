@@ -7,7 +7,7 @@ by ramona a
 • lissagen is a web app for visualizing static lissajous curves
 • two sinusoids are plotted using cartesian coordinates on a 2D plane
   (implemented as a canvas)
-• the "=instantaneous" outputs of each sinusoid (A & B) at "time" t
+• the "instantaneous" outputs of each sinusoid (A & B) at "time" t
   determine the x & y coordinates of each graphed pixel
 • t, as a parameter, is iterated over the range [-1, 1] in steps of
   tStep (currently set at .000008)
