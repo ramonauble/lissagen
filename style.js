@@ -2,7 +2,6 @@
 
 //define canvas reference
 const lissaCanv = document.getElementById("lissaCanv");
-const lissaCtx = lissaCanv.getContext("2d");
 
 //size the canvas according to innerWidth of window object
 //capped at 421px;
