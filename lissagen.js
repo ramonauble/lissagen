@@ -23,6 +23,25 @@ var plane = new ImageData(imgWidth, imgHeight);
 var wPlane_arr = null;
 var wPlane_img = null;
 
+var lastUpdate;
+var updateTime = 16.67;
+var supportsOffscreen;
+
+var lissaCanvOff;
+var lissaCtx;
+var transferState;
+
+//test for offscreen canvas support
+if (typeof lissaCanv.transferControlToOffscreen === "function") {
+  supportsOffscreen = true;
+  lissaCanvOff = lissaCanv.transferControlToOffscreen();
+  transferState = false;
+} else {
+  supportsOffscreen = false;
+  lissaCtx = lissaCanv.getContext("2d");
+  transferState = true;
+}
+
 //instantiate worker to calculate curves
 var drawCurve = new Worker('drawCurve.js');
 drawCurve.onmessage = function(wPlane) {
@@ -31,28 +50,54 @@ drawCurve.onmessage = function(wPlane) {
   lissaCtx.putImageData(wPlane_img, 0, 0);
 }
 
-//draw initial curve
-drawLis();
+//tests to determine if offscreen canvas needs sent to worker
+if (transferState == false) {
+  //hasn't yet been transferred - send offscreen canvas
+  drawCurve.postMessage(
+    {
+      offscreen: supportsOffscreen,
+      transferState: transferState,
+      offscreenCanv: lissaCanvOff
+    },
+    [
+      lissaCanvOff
+    ]
+  );
+  transferState = true;
+}
+
+//begin drawing curve
+window.requestAnimationFrame(drawLis);
 
 //redraw the curve on input change
-function drawLis () {
-  if (window.Worker) {
-    let paramsArr = [scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep,
-    imgWidth, imgHeight];
-    drawCurve.postMessage(paramsArr);
-  } else {
-    plane = new ImageData(imgWidth, imgHeight);
-    for (let t = tMin; t <= tMax; t += tStep) {
-      let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
-      let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
-      let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
-      plane.data[pixelIndex] = 0;  //red
-      plane.data[pixelIndex + 1] = 0;  //green
-      plane.data[pixelIndex + 2] = 0;  //blue
-      plane.data[pixelIndex + 3] = a; //alpha
+function drawLis (timestamp) {
+  if (lastUpdate == undefined || (timestamp - lastUpdate) >= updateTime) {
+    lastUpdate = timestamp;
+    if (window.Worker) {
+      let paramsArr = [scaleA, scaleB, freqA, freqB, d, tMin, tMax, tStep,
+      imgWidth, imgHeight];
+      drawCurve.postMessage(
+        {
+          offscreen: supportsOffscreen,
+          transferState: transferState,
+          params: paramsArr
+        }
+      );
+    } else {
+      plane = new ImageData(imgWidth, imgHeight);
+      for (let t = tMin; t <= tMax; t += tStep) {
+        let x_lis = Math.floor(scaleA*((imgWidth - 1)/2)*Math.sin(freqA*pi*t + d));
+        let y_lis = Math.floor(scaleB*((imgHeight - 1)/2)*Math.sin(freqB*pi*t));
+        let pixelIndex = cToIndex(imgWidth, imgHeight, x_lis, y_lis);
+        plane.data[pixelIndex] = 0;  //red
+        plane.data[pixelIndex + 1] = 0;  //green
+        plane.data[pixelIndex + 2] = 0;  //blue
+        plane.data[pixelIndex + 3] = a; //alpha
+      }
+      lissaCtx.putImageData(plane, 0, 0);
     }
-    lissaCtx.putImageData(plane, 0, -1);
   }
+  window.requestAnimationFrame(drawLis);
 }
 
 //convert from cartesian coordinates to an array index
@@ -67,24 +112,20 @@ function cToIndex (imgWidth, imgHeight, x, y) {
 }
 
 function paramInput (param, value) {
-  //1 to 128
   if (param == "xFreq") {
     freqA = parseFloat(value);
     xFreq_disp.innerHTML = parseFloat(freqA).toFixed(2);
   } else if (param == "yFreq") {
     freqB = parseFloat(value);
     yFreq_disp.innerHTML = parseFloat(freqB).toFixed(2);
-  //0 to 1
   } else if (param == "xScale") {
     scaleA = parseFloat(value);
     xScale_disp.innerHTML = parseFloat(scaleA).toFixed(2);
   } else if (param == "yScale") {
     scaleB = parseFloat(value);
     yScale_disp.innerHTML = parseFloat(scaleB).toFixed(2);
-  //0 to 2*pi
   } else if (param == "pShift") {
     d = parseFloat(value);
     d_disp.innerHTML = parseFloat(d).toFixed(2);
   }
-  drawLis();
 }
